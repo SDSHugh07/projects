@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <title>JavaScript Color Guessing Game</title>
+	<script>
+		function do_game() {
+			var color_list = ["blue", "brown", "green", "yellow", "purple", "grey", "black", "orange"];
+			var idx_random_color_list;
+			var guesses = 0;
+			var target_color = "";
+			var finished = false;
+			var guess_input_text = "";
+	
+			console.log("size of color list = " + color_list.length);
+			console.log("index 0 of color_list = " + color_list[0]);
+			console.log("unordered list " + color_list);
+			color_list.sort();
+			console.log("ordered list " + color_list);
+		   
+			random_number_integer = Math.floor(Math.random() * (color_list.length));
+			
+			//test range of random numbers
+			/*var i;
+			for (i = 0; i < 50; i++) {
+				random_number_integer = Math.floor(Math.random() * (color_list.length));
+				console.log("random number = " + random_number_integer);
+		
+			}*/
+	
+			target_color = color_list[random_number_integer];
+			console.log("target color = " + target_color);
+			
+			alert("Hint, the target color is " + target_color);		
+
+			while (!finished) {
+				guess_input_text = prompt("I am thinking of a color in the range of [" + color_list.join(", ") + "]\n\nWhat is the color?");
+				console.log("guess input = " + guess_input_text);
+				guesses += 1;   
+				finished = check_guess(target_color, guess_input_text, color_list);
+			}
+			
+			alert("Congratulations! You have guessed the color!\n\nIt took you " + guesses + " guesses to finish the game!\n\nYou can see the color in the background.")
+		}
+
+		function check_guess(target, guess, list) {
+			var return_val = false;
+			console.log("check_guess() - target = " + target);
+			console.log("check_guess() - guess = " + guess);
+			console.log("list " + list);
+			
+			if(list.indexOf(guess) == -1){
+				alert("I dont recognize that color");
+			}
+			else if(guess > target){
+				alert("Sorry, your guess is not correct!\n\nHint: your color is alphabetically higher than mine.\n\nPlease try again.");
+			}
+			else if(guess < target){
+				alert("Sorry, your guess is not correct!\n\nHint: your color is alphabetically lower than mine.\n\nPlease try again.");
+			}
+			else{
+				myBody=document.getElementsByTagName("body")[0];
+				myBody.style.background=target;
+				return_val = true;
+			}
+			
+			return return_val;  
+		}
+	</script>
+</head>
+    <body onload="do_game()">
+		
+    </body>
+</html>
